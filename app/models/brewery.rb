@@ -2,6 +2,8 @@ class Brewery < ActiveRecord::Base
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers
 
+  include RatingAverage
+
   def restart
     self.year = 2015
     puts "changed year to #{year}"
@@ -13,7 +15,4 @@ class Brewery < ActiveRecord::Base
     puts "number of beers #{beers.count}"
   end
 
-  def average_rating
-    self.ratings.average(:score)
-  end
 end
