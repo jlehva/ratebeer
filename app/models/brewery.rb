@@ -12,4 +12,8 @@ class Brewery < ActiveRecord::Base
     puts "established at year #{year}"
     puts "number of beers #{beers.count}"
   end
+
+  def average_rating
+    self.ratings.average(:score)
+  end
 end
