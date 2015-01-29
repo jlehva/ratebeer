@@ -13,4 +13,10 @@ class User < ActiveRecord::Base
                          minimum: 3,
                          maximum: 15
                      }
+  validates :password, length: {
+                         minimum: 4
+                     }
+  validates_format_of :password, with: /(?=.*[\d])/, message: "password must contain at least one digit"
+  validates_format_of :password, with: /(?=.*[A-ZÅÄÖ])/, message: "password must contain at least one upper case letter"
+
 end
