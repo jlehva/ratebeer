@@ -31,7 +31,7 @@
 
     <ul>
       <% @user.beer_clubs.each do |beerclub| %>
-          <li> <%= beerclub.to_s %></li>
+          <li> <%= link_to beerclub.to_s, beer_club_path(beerclub) %></li>
       <% end %>
     </ul>
 <% end %>
