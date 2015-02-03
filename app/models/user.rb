@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
   validates_format_of :password, with: /(?=.*[A-ZÅÄÖ])/, message: "password must contain at least one upper case letter"
 
   def favorite_beer
+    return nil if ratings.empty?
+    # ratings.sort_by{ |r| r.score }.last.beer
+    ratings.order(score: :desc).limit(1).first.beer
   end
 
 end
