@@ -85,10 +85,11 @@ describe User do
     end
 
     it "is the one with highest rating if several rated" do
+      create_beers_with_ratings_and_style(10, 20, 15, 7, 1, user, 'stout')
       create_beers_with_ratings_and_style(10, 20, 15, 7, 9, user, 'IPA')
       create_beers_with_ratings_and_style(10, 20, 15, 7, 8, user, 'Lager')
 
-      expect(user.favorite_style).to eq('Lager')
+      expect(user.favorite_style).to eq('IPA')
     end
 
   end
