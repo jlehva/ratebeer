@@ -19,4 +19,7 @@ class User < ActiveRecord::Base
   validates_format_of :password, with: /(?=.*[\d])/, message: "password must contain at least one digit"
   validates_format_of :password, with: /(?=.*[A-ZÅÄÖ])/, message: "password must contain at least one upper case letter"
 
+  def favorite_beer
+  end
+
 end

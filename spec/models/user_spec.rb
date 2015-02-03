@@ -41,4 +41,17 @@ describe User do
       expect(User.count).to eq(0)
     end
   end
+
+  describe "favorite beer" do
+    let(:user){FactoryGirl.create(:user) }
+
+    it "has method for determining one" do
+      expect(user).to respond_to(:favorite_beer)
+    end
+
+    it "without ratings does not have one" do
+      expect(user.favorite_beer).to eq(nil)
+    end
+  end
+
 end
