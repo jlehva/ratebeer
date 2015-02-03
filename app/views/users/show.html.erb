@@ -7,13 +7,18 @@
 
 <p>
   <% if @user.ratings.empty? %>
-      has made no ratings or favorite style
+      has made no ratings and has no favorite style or favorite brewery
   <% else %>
       <%= "Has made #{pluralize(@user.ratings.count, 'rating')}, average #{@user.average_rating}" %>
 
       <p>
       <strong>Favorite style:</strong>
       <%= @user.favorite_style %>
+      </p>
+
+      <p>
+      <strong>Favorite brewery:</strong>
+      <%= link_to @user.favorite_brewery.name, @user.favorite_brewery %>
       </p>
 
       <h2>ratings</h2>
