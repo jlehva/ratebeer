@@ -105,14 +105,39 @@ describe User do
     end
 
     it "is the brewery if only one beer rated from it" do
-      beer = create_beer_with_rating(10, user)
+      brewery = FactoryGirl.create(:brewery, name:"koff")
+      beer = create_beer_with_rating_and_brewery(10, user, brewery)
 
       expect(user.favorite_brewery).to eq(beer.brewery.name)
+    end
+
+    it "is the brewery if has the best average rating for it's beers" do
+      b1 = FactoryGirl.create(:brewery, name:"koff")
+      b2 = FactoryGirl.create(:brewery, name:"olvi")
+      b3 = FactoryGirl.create(:brewery, name:"karjala")
+
+      create_beers_with_ratings_and_brewery(10, 20, user, b1)
+      create_beers_with_ratings_and_brewery(10, 30, user, b2)
+      create_beers_with_ratings_and_brewery(10, 10, user, b3)
+
+      expect(user.favorite_brewery).to eq(b2.name)
     end
 
   end
 
 end # describe User
+
+def create_beers_with_ratings_and_brewery(*scores, user, brewery)
+  scores.each do |score|
+    create_beer_with_rating_and_brewery score, user, brewery
+  end
+end
+
+def create_beer_with_rating_and_brewery(score, user, brewery)
+  beer = FactoryGirl.create(:beer, brewery: brewery)
+  FactoryGirl.create(:rating, score:score, beer:beer, user:user)
+  beer
+end
 
 def create_beers_with_ratings_and_style(*scores, user, style)
   scores.each do |score|
