@@ -77,6 +77,13 @@ describe User do
     it "without ratings does not have one" do
       expect(user.favorite_style).to eq(nil)
     end
+
+    it "is the style if only one beer rated" do
+      beer = create_beer_with_rating(10, user)
+
+      expect(user.favorite_style).to eq(beer.style)
+    end
+
   end
 
 end # describe User
