@@ -91,6 +91,24 @@ describe User do
 
       expect(user.favorite_style).to eq('IPA')
     end
+  end
+
+  describe "favorite_brewery" do
+    let(:user){FactoryGirl.create(:user) }
+
+    it "has method for determining one" do
+      expect(user).to respond_to :favorite_brewery
+    end
+
+    it "without ratings does not have one" do
+      expect(user.favorite_brewery).to eq(nil)
+    end
+
+    it "is the brewery if only one beer rated from it" do
+      beer = create_beer_with_rating(10, user)
+
+      expect(user.favorite_brewery).to eq(beer.brewery.name)
+    end
 
   end
 

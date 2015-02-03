@@ -30,4 +30,9 @@ class User < ActiveRecord::Base
     beers.group(:style).average(:score).max_by { |name, score| score }.first
   end
 
+  def favorite_brewery
+    return nil if ratings.empty?
+    beers.first.name
+  end
+
 end
