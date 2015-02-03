@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   def favorite_brewery
     return nil if ratings.empty?
-    beers.first.brewery.name
+    beers.group(:brewery).average(:score).max_by { |name, score| score }.first
   end
 
 end

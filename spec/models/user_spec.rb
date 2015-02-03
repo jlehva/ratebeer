@@ -108,7 +108,7 @@ describe User do
       brewery = FactoryGirl.create(:brewery, name:"koff")
       beer = create_beer_with_rating_and_brewery(10, user, brewery)
 
-      expect(user.favorite_brewery).to eq(beer.brewery.name)
+      expect(user.favorite_brewery).to eq(beer.brewery)
     end
 
     it "is the brewery if has the best average rating for it's beers" do
@@ -120,7 +120,7 @@ describe User do
       create_beers_with_ratings_and_brewery(10, 30, user, b2)
       create_beers_with_ratings_and_brewery(10, 10, user, b3)
 
-      expect(user.favorite_brewery).to eq(b2.name)
+      expect(user.favorite_brewery).to eq(b2)
     end
 
   end
