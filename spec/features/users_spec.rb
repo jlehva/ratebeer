@@ -31,4 +31,29 @@ describe "User" do
       }.to change{User.count}.by(1)
     end
   end
+
+  describe "who has made ratings" do
+    it "has his or her own ratings on the user page" do
+      user1 = User.first
+      user2 = FactoryGirl.create :user2
+
+      brewery = FactoryGirl.create :brewery, name:"Koff"
+      beer1 = FactoryGirl.create :beer, name:"iso 3", brewery:brewery
+      beer2 = FactoryGirl.create :beer, name:"Karhu", brewery:brewery
+      beer3 = FactoryGirl.create :beer, name:"lappari", brewery:brewery
+
+      FactoryGirl.create :rating, beer:beer1, user:user1
+      FactoryGirl.create :rating, beer:beer2, user:user1
+      FactoryGirl.create :rating, beer:beer3, user:user2
+
+      visit user_path(user1)
+      expect(page).to have_content('Has made 2 ratings')
+      expect(page).to have_content('iso 3')
+      expect(page).to have_content('Karhu')
+
+      visit user_path(user2)
+      expect(page).to have_content('Has made 1 rating')
+      expect(page).to have_content('lappari')
+    end
+  end
 end
